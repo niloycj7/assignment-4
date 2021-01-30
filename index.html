@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curise Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <section id="login-area" class="main-content container">
+
+        <div class="booking-content">
+            <h1>Cruise Queen</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book./p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Book Ocean Time</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhaka, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="phone-count" class="inp-width" type="" name="" value="0">
+                </div>
+                <button onclick="handleProductChange('phone', false)" class="btn btn-secondary"><i class="fas fa-minus"></i></button>
+                <button onclick="handleProductChange('phone', true)" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
+            </div>
+            
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input id="case-count" class="inp-width" type="" name="" value="0">
+                </div>
+                     <button onclick="handleProductChange('case', false)" class="btn btn-secondary"><i class="fas fa-minus"></i></button>
+                    <button onclick="handleProductChange('case', true)" class="btn btn-secondary"><i class="fas fa-plus"></i></button>    
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="total-price">$0</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="tax-amount">$0</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <p>Total</p>
+                    </div>
+                    <div class="right">
+                        <h5 id="grand-total">$0</h5>
+                    </div>
+                </div>
+            </div>
+            <button id="login" class="btn-style">Book Now</button>
+        </div>
+    </section>
+    <div id="Second-window">
+        <h1 class="text-center mt-5 text-light">Your booking successfully completed</h1>
+    </div>
+
+    <script>
+        function handleProductChange(product, isIncrease){
+            const productCount = getInputValue(product);
+            let productNewCount = 0;
+            if(isIncrease == true){
+                productNewCount = productCount + 1;
+            }
+            if(isIncrease == false && productCount > 0){
+                productNewCount = productCount - 1;
+            }
+            document.getElementById(product + '-count').value = productNewCount;
+            let productTotal = 0;
+            if(product == 'phone'){
+                productTotal = productNewCount * 150; 
+            }
+            if(product == 'case'){
+                productTotal = productNewCount * 100;
+            }
+            
+            calculateTotal();
+        }
+
+        function calculateTotal(){
+            const phoneCount = getInputValue('phone');
+            const caseCount = getInputValue('case');
+            
+
+            const totalPrice = phoneCount * 150 + caseCount * 100;
+            document.getElementById("total-price").innerText = '$' + totalPrice;
+
+            const tax = Math.round(totalPrice * 0.1);
+            document.getElementById("tax-amount").innerText = '$' + tax;
+
+            const grandTotal = totalPrice + tax;
+            document.getElementById("grand-total").innerText = '$' + grandTotal;
+        }
+
+        function getInputValue(product){
+            const productInput = document.getElementById(product + '-count');
+            const productCount = parseInt(productInput.value);
+            return productCount;
+        }
+
+        const loginBtn = document.getElementById("login");
+        loginBtn.addEventListener("click", function(){
+            const loginArea =document.getElementById("login-area");
+            loginArea.style.display = "none";
+            const secondWindow = document.getElementById("second-window");
+            secondWindow.style.display = "block";
+        })
+    </script>
+    <!--Thank You-->
+</body>
+
+</html>
